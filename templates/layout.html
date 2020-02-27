@@ -5,69 +5,85 @@
 
 	<!-- BOOTSTRAP -->
 	<link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
 
 
-	 CSS
+<!--	 CSS-->
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
+    <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
 
-	<!-- GOOGLE FONTS -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One&display=swap"
-          rel="stylesheet">
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #222;
+      padding: 10px;
+    }
+
+    .main1 {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    }
+  </style>
 
 </head>
 <body class="loader">
-
-        <header class="masthead">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="site-heading">
-                      <h1>Stock Visualisation</h1>
-                      <span class="subheading">Using Bokeh & Yahoo Finance</span>
-                        <button class="button"> <a href="{{ url_for('plot') }}"> Plot the Graph</a></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </header>
-
-        <nav class="navbar navbar-expand-lg bg-light techfont">
-            <div class="container">
-                <ul class="navbar-nav align-items-center">
-                    <li><a class="navbar-brand bigbrand" href="{{ url_for('home') }}">CandleStick Charts</a></li>
-                </ul>
-                <ul class="navbar-nav align-items-center ml-auto">
-                    <li><a class="nav-item nav-link" href="{{ url_for('about') }}">About</a></li>
-                    <li><a class="nav-item nav-link" href="https://www.github.com">Github</a></li>
-                    <li><a class="nav-item nav-link" href="https://www.LinkedIn.com">LinkedIn</a></li>
-                </ul>
-            </div>
-        </nav>
-
-
-        <div class="jumbotron">
-            {%block content%}
-            {%endblock%}
-	        <h1>Thanks for checking me out</h1>
-<!--	        <h2>Enter the Tickr symbol for the viewing the candlestick(2 months) of NSE stocks</h2>-->
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('home') }}">CandleStick Charts</a>
         </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+<!--            <li><a href="{{ url_for('about') }}">About</a></li>-->
+          <li><a href="{{ url_for('plot') }}">Plot</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+<!--          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
+          <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </nav>
 
-        <footer>
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8 col-md-10 mx-auto">
-                <p class="copyright text-muted">Copyright &copy; Your Website 2017</p>
-              </div>
-            </div>
+    <div class="jumbotron text-center">
+      <p>We specialize in blablabla</p>
+      <form action="{{ url_for('plot') }}" method="POST">
+        <div class="input-group">
+          <input type="text" class="form-control" size="50" pattern="[A-Za-z]" placeholder="Enter TICKR symbol" required autofocus>
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-danger">Plot</button>
           </div>
-        </footer>
+        </div>
+      </form>
+    </div>
+
+    <div class="container main1">
+        {%block content%}
+        {%endblock%}
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small white">
+      <!-- Copyright -->
+        <div class="container-fluid text-center">© 2020 Copyright:
+            <a href="https://github.com/cha1690"> Rucha Deshpande </a>
+        </div>
+      <!-- Copyright -->
+
+    </footer>
+<!-- Footer -->
 
     <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
 	</body>
 </html>

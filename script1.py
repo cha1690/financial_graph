@@ -1,19 +1,18 @@
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app=Flask(__name__)
 
-@app.route('/plot/')
-
+@app.route('/plot', methods=['POST'])
 def plot():
-    from datetime import datetime
+    import datetime
     import yfinance as yf
     from bokeh.plotting import figure, show, output_file
     from bokeh.embed import components
     from bokeh.resources import CDN
 
     start_date = datetime.datetime(2020, 1, 1)
-    end_date = datetime.now()
+    end_date = datetime.datetime(2020, 2, 26)
 
     df = yf.download('KOTAKBANK.NS', start_date, end_date)
 
@@ -45,24 +44,23 @@ def plot():
 
     script1, div1 = components(p)
     cdn_js = CDN.js_files[0]
-    cdn_css = CDN.css_files[0]
+    # cdn_css = CDN.css_files[0]
     return render_template("plot.html",
                            script1=script1,
                            div1=div1,
-                           cdn_css=cdn_css,
                            cdn_js=cdn_js)
 
 @app.route('/')
-
-
 def home():
     return render_template("home.html")
 
-@app.route('/about/')
-
-
+@app.route('/about')
 def about():
     return render_template("about.html")
+
+@app.route('/login')
+def login():
+    return render_template("login.html")
 
 
 if __name__=="__main__":

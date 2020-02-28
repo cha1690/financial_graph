@@ -39,9 +39,9 @@
           <a class="navbar-brand" href="{{ url_for('home') }}">CandleStick Charts</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
+          <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
 <!--            <li><a href="{{ url_for('about') }}">About</a></li>-->
-          <li><a href="{{ url_for('plot') }}">Plot</a></li>
+          <li><a href="{{ url_for('stock_list') }}">Browse Stocks</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
 <!--          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
@@ -51,18 +51,19 @@
     </nav>
 
     <div class="jumbotron text-center">
-      <p>We specialize in blablabla</p>
-      <form action="{{ url_for('plot') }}" method="POST">
+      <p>Candle Stick graphs for NSE Stocks</p>
+      <form action="{{url_for('plot')}}" method="POST">
         <div class="input-group">
-          <input type="text" class="form-control" size="50" pattern="[A-Za-z]" placeholder="Enter TICKR symbol" required autofocus>
+          <input type="text" class="form-control" size="50" pattern="[A-Za-z]"
+                 placeholder="Enter TICKR symbol" name="Tickr_symbol" required autofocus>
           <div class="input-group-btn">
-            <button type="button" class="btn btn-danger">Plot</button>
+            <button type="submit" class="btn btn-danger">Plot</button>
           </div>
         </div>
       </form>
     </div>
 
-    <div class="container main1">
+    <div class="container-fluid main1">
         {%block content%}
         {%endblock%}
     </div>

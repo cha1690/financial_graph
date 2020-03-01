@@ -1,7 +1,8 @@
 {%extends "layout.html"%}
 {%block content%}
+<script type="text/javascript" src={{cdn_js | safe}}></script>
 <div class="container-fluid">
-    <link rel="stylesheet" href={{cdn_css | safe}} type="text/css" />
+    <h2>Candle Stick chart for <strong>{{tickrNew1}}</strong> from {{start_date_formatted}} to {{end_date_formatted}}</h2>
 {{script1 | safe}}
 {{div1 | safe}}
 </div>

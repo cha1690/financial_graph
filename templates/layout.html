@@ -2,16 +2,22 @@
 <html>
 <head>
 	<title>CandleStick Graphs for Stocks</title>
+    <!-- BOOTSTRAP DATETIMEPICKER-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
-	<!-- BOOTSTRAP -->
-	<link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <!-- BOOTSTRAP 4-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>-->
 
+    <!--	 CSS-->
 
-<!--	 CSS-->
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
     <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
@@ -33,35 +39,45 @@
 
 </head>
 <body class="loader">
-    <nav class="navbar navbar-inverse">
+   <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="{{ url_for('home') }}">CandleStick Charts</a>
         </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
-<!--            <li><a href="{{ url_for('about') }}">About</a></li>-->
-          <li><a href="{{ url_for('stock_list') }}">Browse Stocks</a></li>
-        </ul>
+        <form action="{{url_for('plot')}}" method="POST" class="navbar-form navbar-left">
+          <div class="input-group">
+            <input type="text" class="form-control" size="50" placeholder="Enter TICKR symbol" name="Tickr_symbol" required
+              autofocus>
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-danger">Plot</button>
+            </div>
+            <div class='col-md-5'>
+              <div class="form-group">
+                <div class='input-group date' id='datetimepicker6'>
+                  <input type='text' class="form-control" placeholder="Enter start date" name="start_date" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class='col-md-5'>
+              <div class="form-group">
+                <div class='input-group date' id='datetimepicker7'>
+                  <input type='text' class="form-control" placeholder="Enter end date" name="end_date" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
         <ul class="nav navbar-nav navbar-right">
-<!--          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
-          <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="{{ url_for('stock_list') }}">Browse Stocks</a></li>
         </ul>
       </div>
     </nav>
-
-    <div class="jumbotron text-center">
-      <p>Candle Stick graphs for NSE Stocks</p>
-      <form action="{{url_for('plot')}}" method="POST">
-        <div class="input-group">
-          <input type="text" class="form-control" size="50" pattern="[A-Za-z]"
-                 placeholder="Enter TICKR symbol" name="Tickr_symbol" required autofocus>
-          <div class="input-group-btn">
-            <button type="submit" class="btn btn-danger">Plot</button>
-          </div>
-        </div>
-      </form>
-    </div>
 
     <div class="container-fluid main1">
         {%block content%}
@@ -78,13 +94,19 @@
 
     </footer>
 <!-- Footer -->
-
-    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+        $('#datetimepicker6').datetimepicker();
+        $('#datetimepicker7').datetimepicker({useCurrent: false});
+        $("#datetimepicker6").on("dp.change", function (e) {        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+  });
+    </script>
 
 	</body>
 </html>

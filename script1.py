@@ -84,29 +84,16 @@ def stock_list():
 
     if request.method == 'POST':
         search_arg = request.form["search"]
-        search_string = str(search_arg)
+        search_string = str(search_arg).upper()
         if len(search_string) != 0:
-            # companies=[]
-            # tickrs=[]
-            # listings=[]
-            # for ind in df.index:
-            #     if (search_string in (df['Company'][ind]).casefold()) or (search_string in (df['Symbol'][ind]).casefold()):
-            #         # companies.append(df['Company'][ind])
-            #         # tickrs.append(df['Symbol'][ind])
-            #         # listings.append(df['First Listing Date'][ind])
-
-            # filtered_df = df[df['Company'] == search_string] or df[df['Symbol'] == search_string]
-
-            # filtered_df = df[((df.Company == search_string) == True) | ((df.Symbol == search_string) == True)]
-
-            filtered_df = df[df['Company'] == search_string]
-
-            print(filtered_df)
-            return render_template("stock_list.html", len=len(filtered_df.count(axis=0, level=None, numeric_only=False)), df=filtered_df)
+            filtered_df = df[df['Company'].str.contains(search_string, regex=False) | df['Symbol'].str.contains(search_string, regex=False)]
+            return render_template("stock_list.html", df=filtered_df)
         else:
-            return render_template("stock_list.html", len=1601, df=df)
+            return render_template("stock_list.html", df=df)
 
     if request.method == 'GET':
-        return render_template("stock_list.html", len=1601, df=df)
+        return render_template("stock_list.html", df=df)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

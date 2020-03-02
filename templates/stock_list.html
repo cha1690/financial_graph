@@ -2,7 +2,7 @@
 {%block content%}
 <div class="container text-center">
   <h1>Stocks listed on NSE</h1>
-  <h3><em>Search using company name for Tickr symbol of various stocks</em></h3>
+  <h3><em>Search for Tickr symbol of various stocks</em></h3>
   <form action="{{ url_for('stock_list') }}" method="POST">
     <div class="input-group">
     <input type="text" class="form-control" placeholder="Search" name="search" size="30">
@@ -17,7 +17,7 @@
 
 <div id="portfolio" class="container-fluid text-center bg-white">
   <div class="row text-center" style="display:flex; flex-wrap: wrap;">
-    {%for ind in range(0, len)%}
+    {%for ind in df.index %}
     <div class="col-sm-4">
       <div class="thumbnail">
         <h3><strong>{{ df['Company'][ind] }}</strong></h3>
